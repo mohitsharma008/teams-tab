@@ -96,6 +96,66 @@ const items = [
     ),
     header: "Project 3",
   },
+  {
+    key: "project3",
+    media: (
+      <Image
+        src="https://fabricweb.azureedge.net/fabric-website/assets/images/avatar/CecilFolk.jpg"
+        avatar
+      />
+    ),
+    header: "Project 3",
+  },
+  {
+    key: "project3",
+    media: (
+      <Image
+        src="https://fabricweb.azureedge.net/fabric-website/assets/images/avatar/CecilFolk.jpg"
+        avatar
+      />
+    ),
+    header: "Project 3",
+  },
+  {
+    key: "project3",
+    media: (
+      <Image
+        src="https://fabricweb.azureedge.net/fabric-website/assets/images/avatar/CecilFolk.jpg"
+        avatar
+      />
+    ),
+    header: "Project 3",
+  },
+  {
+    key: "project3",
+    media: (
+      <Image
+        src="https://fabricweb.azureedge.net/fabric-website/assets/images/avatar/CecilFolk.jpg"
+        avatar
+      />
+    ),
+    header: "Project 3",
+  },
+  {
+    key: "project3",
+    media: (
+      <Image
+        src="https://fabricweb.azureedge.net/fabric-website/assets/images/avatar/CecilFolk.jpg"
+        avatar
+      />
+    ),
+    header: "Project 3",
+  },
+  {
+    key: "projects3",
+    media: (
+      <Image
+        src="https://fabricweb.azureedge.net/fabric-website/assets/images/avatar/CecilFolk.jpg"
+        avatar
+      />
+    ),
+    header: "Project 3s",
+  },
 ];
 
 const details = [
@@ -122,6 +182,30 @@ const details = [
   {
     key: "cecilnm",
     header: "6. Feature",
+  },
+  {
+    key: "cecilnm",
+    header: "6. Feature",
+  },
+  {
+    key: "cecilnm",
+    header: "6. Feature",
+  },
+  {
+    key: "cecilnm",
+    header: "6. Feature",
+  },
+  {
+    key: "cecilnm",
+    header: "6. Feature",
+  },
+  {
+    key: "cecilnm",
+    header: "6. Feature",
+  },
+  {
+    key: "cecilnm",
+    header: "7. Feature",
   },
 ];
 
@@ -154,7 +238,6 @@ const DashBoard: React.FC<{}> = () => {
           overflow: "auto",
           bottom: "0px",
           left: "0px",
-          backgroundColor: "orange",
           right: "0px",
         }}
         role="banner"
@@ -162,7 +245,7 @@ const DashBoard: React.FC<{}> = () => {
         <Flex
           gap="gap.small"
           padding="padding.medium"
-          style={{ backgroundColor: "orange", minHeight: "calc(100vh - 60px)" }}
+          style={{ minHeight: "calc(100vh - 60px)" }}
         >
           <Flex.Item size="size.quarter" grow>
             <Segment>
@@ -172,7 +255,14 @@ const DashBoard: React.FC<{}> = () => {
                 fluid
               />
               <div>
-                <List navigable items={items} />
+                <List
+                  style={{
+                    height: "500px",
+                    overflow: "auto",
+                  }}
+                  navigable
+                  items={items}
+                />
               </div>
             </Segment>
           </Flex.Item>
@@ -197,11 +287,25 @@ const DashBoard: React.FC<{}> = () => {
                     ></Header>
                     <Flex gap="gap.small">
                       <FlexItem size="size.half">
-                        <List navigable items={details} />
+                        <List
+                          style={{
+                            height: "350px",
+                            overflow: "auto",
+                          }}
+                          navigable
+                          items={details}
+                        />
                       </FlexItem>
                       <FlexItem size="size.half">
                         <div>
-                          <List navigable items={items} />
+                          <List
+                            style={{
+                              height: "350px",
+                              overflow: "auto",
+                            }}
+                            navigable
+                            items={items}
+                          />
                         </div>
                       </FlexItem>
                     </Flex>
@@ -216,6 +320,16 @@ const DashBoard: React.FC<{}> = () => {
                       align="center"
                       color="#333"
                     ></Header>
+                    <div>
+                      <List
+                        style={{
+                          height: "350px",
+                          overflow: "auto",
+                        }}
+                        navigable
+                        items={items}
+                      />
+                    </div>
                   </Segment>
                 </FlexItem>
               </Flex>
