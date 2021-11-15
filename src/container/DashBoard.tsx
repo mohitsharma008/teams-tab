@@ -13,8 +13,10 @@ import {
 import "./DashBoard.css";
 import React, { useEffect, useState } from "react";
 import HeaderComponent from "../components/HeaderComponent";
-
+import { useTypedSelector } from ".././redux/Hooks/useSelect";
+import { useActions } from "../redux/Hooks/useAction";
 import { AddIcon } from "@fluentui/react-icons-northstar";
+// import { fetchPosts } from "../redux/Actions/apiAction";
 import axios from "axios";
 const items = [
   {
@@ -175,14 +177,13 @@ const details = [
 
 const DashBoard: React.FC<{}> = () => {
   const [mock, setMock] = useState<any>(null);
-  useEffect(() => {
-    axios
-      .get("https://618cf07bedab980017fd50d6.mockapi.io/api/v1/user")
-      .then((res) => setMock(res.data))
-      .catch((err) => console.log("error occur during fetch"));
-  }, []);
+  const value = useTypedSelector((state) => state.repositories);
+  const { fetchData } = useActions();
 
-  console.log(mock);
+  useEffect(() => {
+    fetchData();
+  }, []);
+  console.log(value);
   return (
     <div
       style={{
@@ -233,11 +234,13 @@ const DashBoard: React.FC<{}> = () => {
                 fluid
               />
 
-              {mock &&
-                mock.map((res: any) => {
+              {value.data !== null &&
+                value.data.map((res: any, index: number) => {
                   return (
                     // const resdata = res.content;
-                    <List className="selectList">{res.project}</List>
+                    <List key={index} className="selectList">
+                      {res.project}
+                    </List>
                   );
                 })}
             </Segment>
@@ -271,6 +274,188 @@ const DashBoard: React.FC<{}> = () => {
             padding="padding.medium"
             style={{ minHeight: "calc(100vh - 60px)", right: 0, left: 0 }}
           >
+            <Flex.Item size="100%">
+              <Segment>
+                <Flex gap="gap.small" padding="padding.medium">
+                  <FlexItem>
+                    <AddIcon />
+                  </FlexItem>
+                  <FlexItem push>
+                    <Button content="Update" primary />
+                  </FlexItem>
+                  <Button content="Team Meeting" primary icon={<AddIcon />} />
+                </Flex>
+                <Flex gap="gap.small">
+                  <FlexItem size="75%">
+                    <Segment>
+                      <Header
+                        style={{ margin: "0px" }}
+                        as="h3"
+                        content="Project Title"
+                      ></Header>
+                      <Flex gap="gap.small">
+                        <FlexItem size="size.half">
+                          <div
+                            style={{
+                              height: "350px",
+                              overflow: "auto",
+                            }}
+                          >
+                            {value.data !== null &&
+                              value.data.map((res: any, index: number) => {
+                                return (
+                                  // const resdata = res.content;
+                                  <List
+                                    key={index}
+                                    className="selectList"
+                                    onClick={() => console.log("hello")}
+                                  >
+                                    {res.project}
+                                  </List>
+                                );
+                              })}
+                          </div>
+                        </FlexItem>
+                        <FlexItem size="size.half">
+                          <div>
+                            <div
+                              style={{
+                                height: "350px",
+                                overflow: "auto",
+                              }}
+                            >
+                              {value.data !== null &&
+                                value.data.map((res: any, index: number) => {
+                                  return (
+                                    // const resdata = res.content;
+                                    <List
+                                      key={index}
+                                      className="selectList"
+                                      onClick={() => console.log("hello")}
+                                    >
+                                      {res.project}
+                                    </List>
+                                  );
+                                })}
+                            </div>
+                          </div>
+                        </FlexItem>
+                      </Flex>
+                    </Segment>
+                  </FlexItem>
+                  <FlexItem size="25%">
+                    <Segment>
+                      <Header
+                        style={{ margin: "0px" }}
+                        as="h3"
+                        content="Team Member"
+                        align="center"
+                        color="#333"
+                      ></Header>
+                      <div
+                        style={{
+                          height: "350px",
+                          overflow: "auto",
+                        }}
+                      >
+                        {value.data &&
+                          value.data.map((res: any, index: number) => {
+                            return (
+                              // const resdata = res.content;
+                              <List
+                                key={index}
+                                className="selectList"
+                                onClick={() => console.log("hello")}
+                              >
+                                {res.employee}
+                              </List>
+                            );
+                          })}
+                      </div>
+                    </Segment>
+                  </FlexItem>
+                </Flex>
+              </Segment>
+            </Flex.Item>
+          </Flex>
+        </div>
+      </div>
+      {/* <div style={{ display: "flex" }}>
+          <div
+            style={{
+              height: "100vh",
+              overflow: "auto",
+              width: "20%",
+              backgroundColor: "red",
+              paddingTop: "34px",
+            }}
+          >
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>dsas</h1>
+            <h1>d5sas</h1>
+          </div>
+        </div> */}
+
+      {/* <div
+          style={{
+            position: "absolute",
+            top: "34px",
+            overflow: "auto",
+            bottom: "0px",
+            left: "0px",
+            right: "0px",
+          }}
+          role="banner"
+        >
+          <Flex
+            gap="gap.small"
+            padding="padding.medium"
+            style={{ minHeight: "calc(100vh - 60px)" }}
+          >
+            <Flex.Item size="size.quarter" grow>
+              <Segment>
+                <Input
+                  color="#333"
+                  placeholder="Search Project & Feature"
+                  fluid
+                />
+                <div
+                  style={{
+                    height: "500px",
+                    overflow: "auto",
+                  }}
+                >
+                  {mock &&
+                    mock.map((res: any) => {
+                      return (
+                        // const resdata = res.content;
+                        <List className="selectList">{res.project}</List>
+                      );
+                    })}
+                </div>
+              </Segment>
+            </Flex.Item>
             <Flex.Item size="100%">
               <Segment>
                 <Flex gap="gap.small" padding="padding.medium">
@@ -372,186 +557,7 @@ const DashBoard: React.FC<{}> = () => {
               </Segment>
             </Flex.Item>
           </Flex>
-        </div>
-      </div>
-      {/* <div style={{ display: "flex" }}>
-        <div
-          style={{
-            height: "100vh",
-            overflow: "auto",
-            width: "20%",
-            backgroundColor: "red",
-            paddingTop: "34px",
-          }}
-        >
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>dsas</h1>
-          <h1>d5sas</h1>
-        </div>
-      </div> */}
-
-      {/* <div
-        style={{
-          position: "absolute",
-          top: "34px",
-          overflow: "auto",
-          bottom: "0px",
-          left: "0px",
-          right: "0px",
-        }}
-        role="banner"
-      >
-        <Flex
-          gap="gap.small"
-          padding="padding.medium"
-          style={{ minHeight: "calc(100vh - 60px)" }}
-        >
-          <Flex.Item size="size.quarter" grow>
-            <Segment>
-              <Input
-                color="#333"
-                placeholder="Search Project & Feature"
-                fluid
-              />
-              <div
-                style={{
-                  height: "500px",
-                  overflow: "auto",
-                }}
-              >
-                {mock &&
-                  mock.map((res: any) => {
-                    return (
-                      // const resdata = res.content;
-                      <List className="selectList">{res.project}</List>
-                    );
-                  })}
-              </div>
-            </Segment>
-          </Flex.Item>
-          <Flex.Item size="100%">
-            <Segment>
-              <Flex gap="gap.small" padding="padding.medium">
-                <FlexItem>
-                  <AddIcon />
-                </FlexItem>
-                <FlexItem push>
-                  <Button content="Update" primary />
-                </FlexItem>
-                <Button content="Team Meeting" primary icon={<AddIcon />} />
-              </Flex>
-              <Flex gap="gap.small">
-                <FlexItem size="75%">
-                  <Segment>
-                    <Header
-                      style={{ margin: "0px" }}
-                      as="h3"
-                      content="Project Title"
-                    ></Header>
-                    <Flex gap="gap.small">
-                      <FlexItem size="size.half">
-                        <div
-                          style={{
-                            height: "350px",
-                            overflow: "auto",
-                          }}
-                        >
-                          {mock &&
-                            mock.map((res: any) => {
-                              return (
-                                // const resdata = res.content;
-                                <List
-                                  className="selectList"
-                                  onClick={() => console.log("hello")}
-                                >
-                                  {res.project}
-                                </List>
-                              );
-                            })}
-                        </div>
-                      </FlexItem>
-                      <FlexItem size="size.half">
-                        <div>
-                          <div
-                            style={{
-                              height: "350px",
-                              overflow: "auto",
-                            }}
-                          >
-                            {mock &&
-                              mock.map((res: any) => {
-                                return (
-                                  // const resdata = res.content;
-                                  <List
-                                    className="selectList"
-                                    onClick={() => console.log("hello")}
-                                  >
-                                    {res.project}
-                                  </List>
-                                );
-                              })}
-                          </div>
-                        </div>
-                      </FlexItem>
-                    </Flex>
-                  </Segment>
-                </FlexItem>
-                <FlexItem size="25%">
-                  <Segment>
-                    <Header
-                      style={{ margin: "0px" }}
-                      as="h3"
-                      content="Team Member"
-                      align="center"
-                      color="#333"
-                    ></Header>
-                    <div
-                      style={{
-                        height: "350px",
-                        overflow: "auto",
-                      }}
-                    >
-                      {mock &&
-                        mock.map((res: any) => {
-                          return (
-                            // const resdata = res.content;
-                            <List
-                              className="selectList"
-                              onClick={() => console.log("hello")}
-                            >
-                              {res.employee}
-                            </List>
-                          );
-                        })}
-                    </div>
-                  </Segment>
-                </FlexItem>
-              </Flex>
-            </Segment>
-          </Flex.Item>
-        </Flex>
-      </div> */}
+        </div> */}
     </div>
   );
 };
