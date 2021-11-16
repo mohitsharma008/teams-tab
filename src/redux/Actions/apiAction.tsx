@@ -8,12 +8,16 @@ const fetchSuccess = (res: any) => ({
   type: ActionType.FETCH_DATA,
   payload: res,
 });
+const fetchFail = (res: any) => ({
+  type: ActionType.FETCH_DATA_FAIL,
+  payload: res,
+});
 
-export const fetchData = () => {
+export const fetchData = (URL: any) => {
   return async (dispatch: Dispatch<Action>) => {
     await axios
-      .get("https://618cf07bedab980017fd50d6.mockapi.io/api/v1/user")
+      .get(URL)
       .then((res) => dispatch(fetchSuccess(res.data)))
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(fetchFail(err.message)));
   };
 };

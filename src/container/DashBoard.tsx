@@ -6,6 +6,7 @@ import {
   Grid,
   Header,
   Image,
+  Loader,
   Input,
   List,
   Segment,
@@ -176,14 +177,16 @@ const details = [
 ];
 
 const DashBoard: React.FC<{}> = () => {
-  const [mock, setMock] = useState<any>(null);
   const value = useTypedSelector((state) => state.repositories);
   const { fetchData } = useActions();
 
   useEffect(() => {
-    fetchData();
+    const URL = "https://618cf07bedab980017fd50d6.mockapi.io/api/v1/user";
+    fetchData(URL);
   }, []);
-  console.log(value);
+  if (value.error !== null) {
+    return <h3>{value.error} Please Try Again!</h3>;
+  }
   return (
     <div
       style={{
@@ -233,7 +236,7 @@ const DashBoard: React.FC<{}> = () => {
                 placeholder="Search Project & Feature"
                 fluid
               />
-
+              {value.loading && <Loader label="process.." />}
               {value.data !== null &&
                 value.data.map((res: any, index: number) => {
                   return (
@@ -301,6 +304,8 @@ const DashBoard: React.FC<{}> = () => {
                               overflow: "auto",
                             }}
                           >
+                            {value.loading && <Loader label="process.." />}
+
                             {value.data !== null &&
                               value.data.map((res: any, index: number) => {
                                 return (
@@ -324,6 +329,8 @@ const DashBoard: React.FC<{}> = () => {
                                 overflow: "auto",
                               }}
                             >
+                              {value.loading && <Loader label="process.." />}
+
                               {value.data !== null &&
                                 value.data.map((res: any, index: number) => {
                                   return (
@@ -358,6 +365,8 @@ const DashBoard: React.FC<{}> = () => {
                           overflow: "auto",
                         }}
                       >
+                        {value.loading && <Loader label="process.." />}
+
                         {value.data &&
                           value.data.map((res: any, index: number) => {
                             return (

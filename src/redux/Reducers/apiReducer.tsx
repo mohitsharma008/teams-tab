@@ -18,6 +18,8 @@ const apiReducer = (
   switch (action.type) {
     case ActionType.FETCH_DATA:
       return { error: null, loading: false, data: action.payload };
+    case ActionType.FETCH_DATA_FAIL:
+      return { error: action.payload, loading: false, data: null };
 
     default:
       return state;
