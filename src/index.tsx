@@ -8,7 +8,8 @@ import reducers from "./redux/Combine";
 import reportWebVitals from "./reportWebVitals";
 import { Provider, teamsTheme } from "@fluentui/react-northstar";
 import { Provider as Providerr } from "react-redux";
-const store = createStore(reducers, applyMiddleware(thunk));
+import store from "./redux/store/index";
+// const store = createStore(reducers, applyMiddleware(thunk));
 ReactDOM.render(
   <Provider theme={teamsTheme}>
     <Providerr store={store}>

@@ -11,12 +11,14 @@ import {
   List,
   Segment,
 } from "@fluentui/react-northstar";
+import { useDispatch, useSelector } from "react-redux";
 import "./DashBoard.css";
 import React, { useEffect, useState } from "react";
 import HeaderComponent from "../components/HeaderComponent";
 import { useTypedSelector } from ".././redux/Hooks/useSelect";
 import { useActions } from "../redux/Hooks/useAction";
 import { AddIcon } from "@fluentui/react-icons-northstar";
+// import { fetchData, fetchDataSuccess } from "../redux/Actions/apiAction";
 // import { fetchPosts } from "../redux/Actions/apiAction";
 import axios from "axios";
 const items = [
@@ -178,15 +180,17 @@ const details = [
 
 const DashBoard: React.FC<{}> = () => {
   const value = useTypedSelector((state) => state.repositories);
-  const { fetchData } = useActions();
-
+  const dispatch = useDispatch();
+  const { fetchDataSuccess } = useActions();
   useEffect(() => {
-    const URL = "https://618cf07bedab980017fd50d6.mockapi.io/api/v1/user";
-    fetchData(URL);
+    fetchDataSuccess();
   }, []);
-  if (value.error !== null) {
-    return <h3>{value.error} Please Try Again!</h3>;
-  }
+  // if (value.error !== null) {
+  //   return <h3>{value.error} Please Try Again!</h3>;
+  // }
+  console.log(value);
+  console.log(value);
+
   return (
     <div
       style={{
